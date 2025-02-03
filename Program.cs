@@ -28,15 +28,13 @@ class Program
     static string REVERSE = Console.IsOutputRedirected ? "" : "\x1b[7m";
     static string NOREVERSE = Console.IsOutputRedirected ? "" : "\x1b[27m";
 
-    static int videoSelection = 0;
-    static int snacAssigmentSelection = 0;
-    static int snacSelection = 0;
-    static readonly int analogizerEnaSelection = 1;
-    static int pocketBlankScreenSelection = 0;
-    static int analogizerOsdOutSelection = 1;
-    static string AnalogizerHeader = @"
-===============================================================================
-   ###   #     #   ###   #         ####   #######    #### ####### ####### #### 
+    static int videoSelection = -1;
+    static int snacAssigmentSelection = -1;
+    static int snacSelection = -1;
+    static readonly int analogizerEnaSelection = -1;
+    static int pocketBlankScreenSelection =-1;
+    static int analogizerOsdOutSelection = -1;
+    static string AnalogizerHeader = @"   ###   #     #   ###   #         ####   #######    #### ####### ####### #### 
   #...#  ##    #. #...#  #.       #....#  #.          #..  ....#. #...... #...#
  #.    # #.#   #.#.    # #.      #.     #.#.          #.      #.  #.      #.  #
  #.    #.#. #  #.#.    #.#.      #.     #.#.  ####    #.     #.   ####### ####.
@@ -44,10 +42,7 @@ class Program
  #.....#.#.   ##.#.....#.#.      #.     #.#.      #.  #.   #.     #.      #. #.
  #.    #.#.    #.#.    #.#.       #.   #. #.      #.  #.  #.      #.      #.  #
  #.    #.#.    #.#.    #.#######   ####.   #######.  #### ####### ####### #.  #
-                                                                               
-                       C O N F I G U R A T O R  V0.1 BETA                      
-===============================================================================
-";
+===================== C O N F I G U R A T O R   V 0.2 =========================";
     static readonly Dictionary<int, string> MenuOptions = new Dictionary<int, string>
     {
         {1, "SNAC game controller options"},
@@ -104,8 +99,8 @@ class Program
 
     static readonly Dictionary<int, string> PocketBlankScreenOptions = new Dictionary<int, string>
     {
-        {1, "Pocket Blank Screen ON"},
-        {0, "Pocket Blank Screen OFF"}
+        {1, "No video output on the Pocket screen"},
+        {0, "Video is show on the Pocket screen"}
     };
 
     static readonly Dictionary<int, string> AnalogizerOSDOptions = new Dictionary<int, string>
@@ -123,17 +118,16 @@ class Program
     {
         while (snacSelection == -1)
         {
-            Console.Clear();
-
+            ShowHeader();
             //Opciones de selección de mando SNAC
             // Console.WriteLine($"\n\n{GREY}{REVERSE}=== SNAC Game Controller Selection:==={NOREVERSE}{NORMAL}");
-            Console.WriteLine($"=== SNAC Game Controller Selection:===");
+            Console.WriteLine($"====== SNAC GAME CONTROLLER SELECTION OPTIONS ======");
             foreach (var option in SNACSelectionOptions)
             {
                 Console.WriteLine("{0}: {1}", option.Key, option.Value);
                 //Console.WriteLine("{0}{1}: {2}{3}", GREEN, option.Key, NORMAL, option.Value);
             }
-            Console.WriteLine("");
+            //Console.WriteLine("");
             Console.Write($"Select an option:");
             if (int.TryParse(Console.ReadLine(), out int input) && SNACSelectionOptions.ContainsKey(input))
             {
@@ -147,16 +141,19 @@ class Program
                 snacSelection = -1; // Reinicia la selección de video para repetir el menú completo
             }
         }
-        
+    }
+    private static void SnacAssigmentsOptions()
+    {
         while (snacAssigmentSelection == -1)
         {
+            ShowHeader();
             //Opciones asignación de mando SNAC
-            Console.WriteLine($"\n\n=== SNAC Game Controller Assignments Selection:===");
+            Console.WriteLine($"====== SNAC GAME CONTROLLER ASSIGMENTS OPTIONS ======");
             foreach (var option in SNACassigmentsOptions)
             {
                 Console.WriteLine("{0}: {1}", option.Key, option.Value);
             }
-            Console.WriteLine("");
+            //Console.WriteLine("");
             Console.Write($"Select an option:");
             if (int.TryParse(Console.ReadLine(), out int input) && SNACassigmentsOptions.ContainsKey(input))
             {
@@ -176,14 +173,14 @@ class Program
     {
         while (videoSelection == -1)
         {
-            Console.Clear();
+            ShowHeader();
             //Opciones de selección de salida de video
-            Console.WriteLine($"=== Video Output Options ===");
+            Console.WriteLine($"====== VIDEO OUTPUT OPTIONS ======");
             foreach (var option in VideoOutputOptions)
             {
                 Console.WriteLine("{0}: {1}", option.Key, option.Value);
             }
-            Console.WriteLine("");
+            //Console.WriteLine("");
             Console.Write($"Select an option:");
             if (int.TryParse(Console.ReadLine(), out int input) && VideoOutputOptions.ContainsKey(input))
             {
@@ -196,16 +193,21 @@ class Program
                 videoSelection = -1; // Reinicia la selección de video para repetir el menú completo
             }
         }
-       
+    }
+
+    private static void BlankScreenOptions() 
+    {
+        
         while (pocketBlankScreenSelection == -1)
         {
-                //Opciones de pocket Blank Screen
-                Console.WriteLine($"\n\n=== Pocket Blank Screen Options: ===");
+            ShowHeader();
+            //Opciones de pocket Blank Screen
+            Console.WriteLine($"====== POCKET BLANK SCREEN OPTIONS ======");
             foreach (var option in PocketBlankScreenOptions)
             {
                 Console.WriteLine("{0}: {1}", option.Key, option.Value);
             }
-            Console.WriteLine("");
+            //Console.WriteLine("");
             Console.Write($"Select an option:");
             if (int.TryParse(Console.ReadLine(), out int input) && PocketBlankScreenOptions.ContainsKey(input))
             {
@@ -219,18 +221,18 @@ class Program
             }
         }
     }
-    private static void MiscOptions()
+    private static void AnalogizerOSDoutOptions()
     {
         while (analogizerOsdOutSelection == -1)
         {
-            Console.Clear();
+            ShowHeader();
             //Opciones de selección de salida de video
-            Console.WriteLine($"=== Analogizer OSD Options: ===");
+            Console.WriteLine($"====== ANALOGIZER OSD OPTIONS ======");
             foreach (var option in AnalogizerOSDOptions)
             {
                 Console.WriteLine("{0}: {1}", option.Key, option.Value);
             }
-            Console.WriteLine("");
+            //Console.WriteLine("");
             Console.Write($"Select an option:");
             if (int.TryParse(Console.ReadLine(), out int input) && AnalogizerOSDOptions.ContainsKey(input))
             {
@@ -244,95 +246,66 @@ class Program
             }
         }
     }
+
+    private static void ShowHeader()
+    {
+        Console.Clear();
+        Console.WriteLine($"{AnalogizerHeader}");
+        //Console.WriteLine($"======================= C U R R E N T   S E T T I N G S =======================");
+        Console.WriteLine("SNAC Controller:     {0,-40}", snacSelection == -1 ? "-" : SNACSelectionOptions[snacSelection]);
+        Console.WriteLine("SNAC Assigments:     {0,-40}", snacAssigmentSelection == -1 ? "-" : SNACassigmentsOptions[snacAssigmentSelection]);
+        Console.WriteLine("SNAC Video output:   {0,-40}", videoSelection == -1 ? "-" : VideoOutputOptions[videoSelection]);
+        Console.WriteLine("Pocket Blank Screen: {0,-40}", pocketBlankScreenSelection == -1 ? "-" : PocketBlankScreenOptions[pocketBlankScreenSelection]);
+        Console.WriteLine("OSD output:          {0,-40}", analogizerOsdOutSelection == -1 ? "-" : AnalogizerOSDOptions[analogizerOsdOutSelection]);
+        Console.WriteLine($"===============================================================================");
+        //Console.WriteLine("");
+    }
     static void Main(string[] args)
     {
-        int menuDone = -1;
+        int menuDone = 1;
 
-        while (menuDone != 4)
+        while (menuDone != 6)
         {
-            Console.Clear();
-            // Console.WriteLine($"{CYAN}{REVERSE}{AnalogizerHeader}");
-            // Console.WriteLine($"{REVERSE}======================= C U R R E N T   S E T T I N G S ======================={NOREVERSE}");
-            // string msg = string.Format("{0,-40}", SNACSelectionOptions[snacSelection]);
-            // Console.WriteLine("{0}SNAC Controller:    {1}{2,-40}", GREY, YELLOW, SNACSelectionOptions[snacSelection]);
-            // Console.WriteLine("{0}SNAC Assigments:    {1}{2,-40}", GREY, YELLOW, SNACassigmentsOptions[snacAssigmentSelection]);
-            // Console.WriteLine("{0}SNAC Video output:  {1}{2,-40}", GREY, YELLOW, VideoOutputOptions[videoSelection]);
-            // Console.WriteLine("{0}Pocket Blank Screen:{1}{2,-40}", GREY, YELLOW, PocketBlankScreenOptions[pocketBlankScreenSelection]);
-            // Console.WriteLine("{0}OSD output:         {1}{2,-40}", GREY, YELLOW, AnalogizerOSDOptions[analogizerOsdOutSelection]);
-            // Console.WriteLine($"{NORMAL}{REVERSE}==============================================================================={NOREVERSE}");
-            Console.WriteLine($"{AnalogizerHeader}");
-            Console.WriteLine($"======================= C U R R E N T   S E T T I N G S =======================");
-            string msg = string.Format("{0,-40}", SNACSelectionOptions[snacSelection]);
-            Console.WriteLine("SNAC Controller:    {0,-40}", SNACSelectionOptions[snacSelection]);
-            Console.WriteLine("SNAC Assigments:    {0,-40}", SNACassigmentsOptions[snacAssigmentSelection]);
-            Console.WriteLine("SNAC Video output:  {0,-40}", VideoOutputOptions[videoSelection]);
-            Console.WriteLine("Pocket Blank Screen:{0,-40}", PocketBlankScreenOptions[pocketBlankScreenSelection]);
-            Console.WriteLine("OSD output:         {0,-40}", AnalogizerOSDOptions[analogizerOsdOutSelection]);
-            Console.WriteLine($"{NORMAL}{REVERSE}==============================================================================={NOREVERSE}");
-
-            Console.WriteLine("");
-            foreach (var option in MenuOptions)
+            switch (menuDone)
             {
-                Console.WriteLine("{0}: {1}", option.Key, option.Value);
-            }
-            Console.WriteLine("");
-            Console.Write($"Select an option:");
-            if (int.TryParse(Console.ReadLine(), out int input) && VideoOutputOptions.ContainsKey(input))
-            {
-                menuDone = input;
-
-                switch (menuDone)
+                case 1:
                 {
-                    case 1:
-                        {
-                            //SNAC game controller options
-                            snacSelection = -1;
-                            snacAssigmentSelection = -1;
-                            SnacOptions();
-                            break;
-                        }
-
-                    case 2:
-                        {
-                            //Video output options
-                            videoSelection = -1;
-                            pocketBlankScreenSelection = -1;
-                            VideoOptions();
-                            break;
-                        }
-                    case 3:
-                        {
-                            //Miscellaneous options
-                            analogizerOsdOutSelection = -1;
-                            MiscOptions();
-                            break;
-                        }
-                    case 4:
-                        {
-                            //Exit
-                            break;
-                        }
-                    default:
-                        break;
+                    //SNAC game controller options
+                    SnacOptions();
+                    menuDone++;
+                    break;
                 }
+                case 2:
+                {
+                    //SNAC game controller options
+                    SnacAssigmentsOptions();
+                    menuDone++;
+                    break;
+                }
+                case 3:
+                {
+                    //Video output options
+                    VideoOptions();
+                    menuDone++;
+                    break;
+                }
+                case 4:
+                {
+                    BlankScreenOptions();
+                    menuDone++;
+                    break;
+                }
+                case 5:
+                {
+                    //Miscellaneous options
+                    AnalogizerOSDoutOptions();
+                    menuDone++;
+                    break;
+                }
+                default:
+                    break;
             }
-            else
-            {
-                FlushKeyboard();
-                Console.WriteLine("Option not valid.Try again.");
-                Console.ReadLine(); // Espera a que el usuario presione Enter
-                menuDone = -1; // Reinicia la selección de video para repetir el menú completo
-            }
-
         }
-
-
-        //snac_game_cont_type = analogizer_config_s[4:0];
-        //snac_cont_assignment = analogizer_config_s[9:6];
-        //analogizer_video_type = analogizer_config_s[13:10];
-        ////analogizer_ena		  = analogizer_config_s[5];	
-        ////pocket_blank_screen   = analogizer_config_s[14];
-        ////analogizer_osd_out	  = analogizer_config_s[15];
 
         // Almacenar la selección en un archivo binario de 32 bits con big-endian
         uint data = (uint)((analogizerOsdOutSelection << 15) | (pocketBlankScreenSelection << 14) | (videoSelection << 10) | (snacAssigmentSelection << 6) | (analogizerEnaSelection << 5) | snacSelection); // Usamos uint para 32 bits
