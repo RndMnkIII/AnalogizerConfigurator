@@ -254,7 +254,7 @@ class Program
         //Console.WriteLine($"======================= C U R R E N T   S E T T I N G S =======================");
         Console.WriteLine("SNAC Controller:     {0,-40}", snacSelection == -1 ? "-" : SNACSelectionOptions[snacSelection]);
         Console.WriteLine("SNAC Assigments:     {0,-40}", snacAssigmentSelection == -1 ? "-" : SNACassigmentsOptions[snacAssigmentSelection]);
-        Console.WriteLine("SNAC Video output:   {0,-40}", videoSelection == -1 ? "-" : VideoOutputOptions[videoSelection]);
+        Console.WriteLine("Video output:        {0,-40}", videoSelection == -1 ? "-" : VideoOutputOptions[videoSelection]);
         Console.WriteLine("Pocket Blank Screen: {0,-40}", pocketBlankScreenSelection == -1 ? "-" : PocketBlankScreenOptions[pocketBlankScreenSelection]);
         Console.WriteLine("OSD output:          {0,-40}", analogizerOsdOutSelection == -1 ? "-" : AnalogizerOSDOptions[analogizerOsdOutSelection]);
         Console.WriteLine($"===============================================================================");
