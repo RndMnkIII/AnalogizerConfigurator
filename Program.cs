@@ -42,7 +42,7 @@ class Program
  #.....#.#.   ##.#.....#.#.      #.     #.#.      #.  #.   #.     #.      #. #.
  #.    #.#.    #.#.    #.#.       #.   #. #.      #.  #.  #.      #.      #.  #
  #.    #.#.    #.#.    #.#######   ####.   #######.  #### ####### ####### #.  #
-===================== C O N F I G U R A T O R   V 0.2 =========================";
+===================== C O N F I G U R A T O R   V 0.3 =========================";
     static readonly Dictionary<int, string> MenuOptions = new Dictionary<int, string>
     {
         {1, "SNAC game controller options"},
@@ -99,8 +99,9 @@ class Program
 
     static readonly Dictionary<int, string> PocketBlankScreenOptions = new Dictionary<int, string>
     {
-        {1, "No video output on the Pocket screen"},
-        {0, "Video is show on the Pocket screen"}
+        {0, "Video is show on the Pocket screen"},
+        {1, "No video show on the Pocket screen"}
+        
     };
 
     static readonly Dictionary<int, string> AnalogizerOSDOptions = new Dictionary<int, string>
@@ -277,8 +278,15 @@ class Program
                 }
                 case 2:
                 {
-                    //SNAC game controller options
-                    SnacAssigmentsOptions();
+                    if(snacSelection == 0) //If none SNAC controller is selected, bypass assigment
+                        {
+                            snacAssigmentSelection = 0; 
+                        }
+                    else
+                        {
+                            //SNAC game controller options
+                            SnacAssigmentsOptions();
+                        }
                     menuDone++;
                     break;
                 }
