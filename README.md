@@ -4,6 +4,7 @@ Analogizer Configurator
 * Release 0.2 [03/02/2025]: Simplified interface for a better user experience. Thanks for the suggestions to **@Denymetanol**
 * Release 0.3 [04/02/2025]: Fixed an error that stores wrong value into analogizer.bin configuration file.
 * Release 0.4 [19/03/2025]: Added regional settings for analogizer.
+* Release 0.5 [03/09/2025]: Added new JVS IO SNAC device.
 ![diagram](img/AnalogizerConfigurator.png)
 
 Utility for generating Analogizer configuration file for the Analogue Pocket FPGA game system.
