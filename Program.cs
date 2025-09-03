@@ -94,7 +94,8 @@ class Program
         {0x9, "DB15 Fast - Neogeo/Arcade using DB15 connector (fast polling speed)"},
         {0xb, "SNES A,B<->X,Y - SNES with remapped buttons"},
         {0x11, "PSX (Digital PAD) - PlayStation 1/2 digital gamepad"},
-        {0x13, "PSX (Analog PAD) - PlayStation 1/2 analog gamepad"}
+        {0x13, "PSX (Analog PAD) - PlayStation 1/2 analog gamepad"},
+        {0x14, "JVS RS485/RS232 - JVS IO board device"}
     };
 
 
