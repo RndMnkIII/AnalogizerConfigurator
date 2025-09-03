@@ -43,7 +43,7 @@ class Program
  #.....#.#.   ##.#.....#.#.      #.     #.#.      #.  #.   #.     #.      #. #.
  #.    #.#.    #.#.    #.#.       #.   #. #.      #.  #.  #.      #.      #.  #
  #.    #.#.    #.#.    #.#######   ####.   #######.  #### ####### ####### #.  #
-===================== C O N F I G U R A T O R   V 0.4 =========================";
+===================== C O N F I G U R A T O R   V 0.5 =========================";
     static readonly Dictionary<int, string> MenuOptions = new Dictionary<int, string>
     {
         {1, "SNAC game controller options"},
