@@ -43,7 +43,7 @@ class Program
  #.....#.#.   ##.#.....#.#.      #.     #.#.      #.  #.   #.     #.      #. #.
  #.    #.#.    #.#.    #.#.       #.   #. #.      #.  #.  #.      #.      #.  #
  #.    #.#.    #.#.    #.#######   ####.   #######.  #### ####### ####### #.  #
-===================== C O N F I G U R A T O R   V 0.7 =========================";
+============== C O N F I G U R A T O R   V 0.7 by @RndMnkIII ==================";
     static readonly Dictionary<int, string> MenuOptions = new Dictionary<int, string>
     {
         {1, "SNAC game controller options"},
@@ -359,7 +359,9 @@ class Program
                         analogizerRegionalSettings = 0;
                         menuDone = 7; // Skip to the end of the menu
                     }
-                    menuDone++;
+                    else{
+                        menuDone++;
+                    }
                     break;
                 }
 
@@ -424,6 +426,15 @@ class Program
 
         File.WriteAllBytes("analogizer.bin", buffer);
 
+        if(analogizerEnaSelection == 0)
+        {
+            Console.WriteLine("Analogizer is disabled, SNAC and Video assigments are bypassed.");
+        }
+        else
+        {
+            Console.WriteLine("Analogizer is enabled, SNAC and Video assigments are applied.");
+        }
+        
         Console.WriteLine("Analogizer configuration saved to 'analogizer.bin'.");
         Console.WriteLine("Press a key to close...");
         Console.ReadKey(); ; // Espera a que el usuario presione Enter antes de cerrar el programa*/
