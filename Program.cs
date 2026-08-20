@@ -31,7 +31,7 @@ class Program
     static int videoSelection = -1;
     static int snacAssigmentSelection = -1;
     static int snacSelection = -1;
-    static readonly int analogizerEnaSelection = 1;
+    static int analogizerEnaSelection = -1;
     static int pocketBlankScreenSelection =-1;
     static int analogizerOsdOutSelection = -1;
     static int analogizerRegionalSettings = -1;
@@ -66,11 +66,11 @@ class Program
         {9, "SC HQ2x RGBHV"}
     };
 
-    //static Dictionary<int, string> AnalogizerEnableOptions = new Dictionary<int, string>
-    //{
-    //    {1, "On"},
-    //    {0, "Off"}
-    //};
+    static readonly Dictionary<int, string> AnalogizerEnableOptions = new Dictionary<int, string>
+    {
+       {1, "On"},
+       {0, "Off"}
+    };
 
     static readonly Dictionary<int, string> SNACassigmentsOptions = new Dictionary<int, string>
     {
@@ -132,6 +132,34 @@ class Program
             Console.In.Read();
     }
 
+    private static void AnalogizerEnaOptions()
+    {
+        while (analogizerEnaSelection == -1)
+        {
+            ShowHeader();
+            //Opciones de habilitacion de Analogizer
+            // Console.WriteLine($"\n\n{GREY}{REVERSE}=== SNAC Game Controller Selection:==={NOREVERSE}{NORMAL}");
+            Console.WriteLine($"====== ANALOGIZER ENABLE OPTIONS ======");
+            foreach (var option in AnalogizerEnableOptions)
+            {
+                Console.WriteLine("{0}: {1}", option.Key, option.Value);
+                //Console.WriteLine("{0}{1}: {2}{3}", GREEN, option.Key, NORMAL, option.Value);
+            }
+            //Console.WriteLine("");
+            Console.Write($"Select an option:");
+            if (int.TryParse(Console.ReadLine(), out int input) && AnalogizerEnableOptions.ContainsKey(input))
+            {
+                analogizerEnaSelection = input;
+            }
+            else
+            {
+                FlushKeyboard();
+                Console.WriteLine($"Option not valid.Try again.");
+                Console.ReadLine(); // Espera a que el usuario presione Enter
+                analogizerEnaSelection = -1; // Reinicia la selección  para repetir el menú completo
+            }
+        }
+    }
     private static void SnacOptions()
     {
         while (snacSelection == -1)
@@ -299,6 +327,7 @@ class Program
         Console.Clear();
         Console.WriteLine($"{AnalogizerHeader}");
         //Console.WriteLine($"======================= C U R R E N T   S E T T I N G S =======================");
+        Console.WriteLine("Enable Analogizer:   {0,-40}", analogizerEnaSelection == -1 ? "-" : AnalogizerEnableOptions[analogizerEnaSelection]);
         Console.WriteLine("SNAC Controller:     {0,-40}", snacSelection == -1 ? "-" : SNACSelectionOptions[snacSelection]);
         Console.WriteLine("SNAC Assigments:     {0,-40}", snacAssigmentSelection == -1 ? "-" : SNACassigmentsOptions[snacAssigmentSelection]);
         Console.WriteLine("Video output:        {0,-40}", videoSelection == -1 ? "-" : VideoOutputOptions[videoSelection]);
@@ -310,12 +339,30 @@ class Program
     }
     static void Main(string[] args)
     {
-        int menuDone = 1;
+        int menuDone = 0;
 
         while (menuDone != 7)
         {
             switch (menuDone)
             {
+                case 0:
+                {
+                    //Analogizer enable options
+                    AnalogizerEnaOptions();
+                    if (analogizerEnaSelection == 0) //If Analogizer is disabled, bypass SNAC and Video assigments
+                    {
+                        snacSelection = 0;
+                        snacAssigmentSelection = 0;
+                        videoSelection = 0;
+                        pocketBlankScreenSelection = 0;
+                        analogizerOsdOutSelection = 0;
+                        analogizerRegionalSettings = 0;
+                        menuDone = 7; // Skip to the end of the menu
+                    }
+                    menuDone++;
+                    break;
+                }
+
                 case 1:
                 {
                     //SNAC game controller options
