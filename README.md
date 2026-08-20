@@ -6,6 +6,7 @@ Analogizer Configurator
 * Release 0.4 [19/03/2025]: Added regional settings for analogizer.
 * Release 0.5 [03/09/2025]: Added new JVS IO SNAC device.
 * Release 0.6 [17/08/2026]: Added new PS/2 Keyboard and Mouse + gamecontroller SNAC options.
+* Release 0.7 [20/08/2026]: Added global Analogizer adapter enable/disable option (disable will bypass remaining options).
 ![diagram](img/AnalogizerConfigurator.png)
 
 Utility for generating Analogizer configuration file for the Analogue Pocket FPGA game system.
